@@ -1,119 +1,104 @@
-# DB-NBA
-Proyecto Data Analysis Python
+# Informe de Data Profiling de la Base de Datos NBA
 
+## Descripción del Proyecto
+Este análisis de datos forma parte de un proyecto de análisis de datos sobre la NBA, donde se analiza información detallada sobre los jugadores, los partidos y las estadísticas relacionadas con los tiros en los partidos de la liga.
 
-Data Profiling:
+## Data Profiling
 
-Columnas:26
-SEASON_1
-SEASON_2
-TEAM_ID
-TEAM_NAME
-PLAYER_ID
-PLAYER_NAME
-POSITION_GROUP
-POSITION
-GAME_DATE
-GAME_ID
-HOME_TEAM
-AWAY_TEAM
-EVENT_TYPE
-SHOT_MADE
-ACTION_TYPE
-SHOT_TYPE
-BASIC_ZONE
-ZONE_NAME
-ZONE_ABB
-ZONE_RANGE
-LOC_X
-LOC_Y
-SHOT_DISTANCE
-QUARTER
-MINS_LEFT
-SECS_LEFT
+**Columnas: 26**
+
+1. SEASON_1
+2. SEASON_2
+3. TEAM_ID
+4. TEAM_NAME
+5. PLAYER_ID
+6. PLAYER_NAME
+7. POSITION_GROUP
+8. POSITION
+9. GAME_DATE
+10. GAME_ID
+11. HOME_TEAM
+12. AWAY_TEAM
+13. EVENT_TYPE
+14. SHOT_MADE
+15. ACTION_TYPE
+16. SHOT_TYPE
+17. BASIC_ZONE
+18. ZONE_NAME
+19. ZONE_ABB
+20. ZONE_RANGE
+21. LOC_X
+22. LOC_Y
+23. SHOT_DISTANCE
+24. QUARTER
+25. MINS_LEFT
+26. SECS_LEFT
+
+### Problemas Encontrados
+
+- **Comentarios al principio del archivo CSV**: Al cargar el dataframe, se encontraron comentarios al principio del archivo que necesitaron ser limpiados.
   
-Problema encontrado al cargar el Dataframe: Existencia de comentarios al princpio del csv
+- **Datos Nulos**:
+  - **Position group**: 5883 valores nulos
+  - **Position**: 5883 valores nulos
 
-Conteo jugadores: 995
+- **Duplicados**: Se encontraron 59 filas duplicadas en los datos.
 
-NULOS:
-	- Position group: 5883
-	- Position 5883
+- **Conteo de Jugadores**: Hay un total de 995 jugadores únicos.
 
-59 Duplicados
+### Análisis Descriptivo
 
-## Análisis Descriptivo
+#### Resumen Estadístico de las Columnas Clave
 
-	SEASON_1	TEAM_ID	PLAYER_ID	GAME_ID	LOC_X	LOC_Y	SHOT_DISTANCE	QUARTER	MINS_LEFT	SECS_LEFT
-count	1.031742e+06	1.031742e+06	1.031742e+06	1.031742e+06	1.031742e+06	1.031742e+06	1.031742e+06	1.031742e+06	1.031742e+06	1.031742e+06
-mean	2.022085e+03	1.610613e+09	1.123357e+06	2.210906e+07	6.393649e-02	1.009710e+01	1.356868e+01	2.480922e+00	5.372256e+00	2.886430e+01
-std	1.402025e+00	8.652659e+00	6.855691e+05	1.402308e+05	7.444121e+00	7.313461e+00	1.058618e+01	1.131820e+00	3.454473e+00	1.741323e+01
-min	2.020000e+03	1.610613e+09	1.713000e+03	2.190000e+07	-2.500000e+01	5.000000e-02	0.000000e+00	1.000000e+00	0.000000e+00	0.000000e+00
-25%	2.021000e+03	1.610613e+09	2.034970e+05	2.200039e+07	-1.220000e+00	5.965000e+00	2.000000e+00	1.000000e+00	2.000000e+00	1.400000e+01
-50%	2.022000e+03	1.610613e+09	1.627936e+06	2.210078e+07	-0.000000e+00	7.050000e+00	1.300000e+01	2.000000e+00	5.000000e+00	2.900000e+01
-75%	2.023000e+03	1.610613e+09	1.629634e+06	2.220101e+07	1.120000e+00	8.625000e+00	2.500000e+01	3.000000e+00	8.000000e+00	4.400000e+01
-max	2.024000e+03	1.610613e+09	1.642013e+06	2.230123e+07	2.500000e+01	8.945000e+01	8.800000e+01	7.000000e+00	1.200000e+01	5.900000e+01
+| **Columna**       | **Media** | **Desviación Estándar** | **Mínimo** | **Máximo** |
+|-------------------|-----------|-------------------------|------------|------------|
+| SEASON_1          | 2003.78   | 1.40                    | 2002       | 2024       |
+| TEAM_ID           | 1610613009| 8.65                    | 1610613000 | 1610613029 |
+| PLAYER_ID         | 1123357   | 685,569                 | 1,713      | 1,642,013  |
+| GAME_ID           | 22,109,060| 140,230,805             | 21,900,000 | 22,301,230 |
+| LOC_X             | 0.0639    | 7.444                   | -25        | 25         |
+| LOC_Y             | 10.097    | 7.313                   | 0.05       | 89.45      |
+| SHOT_DISTANCE     | 13.57     | 10.59                   | 0          | 89         |
+| QUARTER           | 2.48      | 1.13                    | 1          | 7          |
+| MINS_LEFT         | 5.37      | 3.45                    | 0          | 12         |
+| SECS_LEFT         | 28.86     | 17.41                   | 0          | 59         |
 
+#### Tipos de Datos
 
-## Tipos de columnas:
+Los tipos de las columnas están correctamente identificados en su mayoría, pero algunos campos necesitan ajustes:
 
-0   SEASON_1        1031742 non-null  int64    x
- 1   SEASON_2        1031742 non-null  object  x
- 2   TEAM_ID         1031742 non-null  int64   x
- 3   TEAM_NAME       1031742 non-null  object  x
- 4   PLAYER_ID       1031742 non-null  int64   x
- 5   PLAYER_NAME     1031742 non-null  object  x
- 6   POSITION_GROUP  1025859 non-null  object  x
- 7   POSITION        1025859 non-null  object  x
- 8   GAME_DATE       1031742 non-null  object  -> Tiene que ser fecha
- 9   GAME_ID         1031742 non-null  int64   x
- 10  HOME_TEAM       1031742 non-null  object  x
- 11  AWAY_TEAM       1031742 non-null  object  x
- 12  EVENT_TYPE      1031742 non-null  object  x
- 13  SHOT_MADE       1031742 non-null  bool    x
- 14  ACTION_TYPE     1031742 non-null  object  x
- 15  SHOT_TYPE       1031742 non-null  object  x
- 16  BASIC_ZONE      1031742 non-null  object  x
- 17  ZONE_NAME       1031742 non-null  object  
- 18  ZONE_ABB        1031742 non-null  object 
- 19  ZONE_RANGE      1031742 non-null  object 
- 20  LOC_X           1031742 non-null  float64
- 21  LOC_Y           1031742 non-null  float64
- 22  SHOT_DISTANCE   1031742 non-null  int64  
- 23  QUARTER         1031742 non-null  int64  
- 24  MINS_LEFT       1031742 non-null  int64  
- 25  SECS_LEFT       1031742 non-null  int64  
- 
-game date tiene que estar en formato fecha, actualmente esta en objeto
+- **GAME_DATE** debe ser convertido a tipo **fecha** ya que actualmente se encuentra en formato de objeto.
+  
+### Valores Únicos
 
-Revisar  event type y Shot_made
+A continuación se presenta un resumen de la cantidad de valores únicos por cada columna clave:
 
-
-## Valores Unico
-SEASON_1: 5
-SEASON_2: 5
-TEAM_ID: 30
-TEAM_NAME: 31
-PLAYER_ID: 954
-PLAYER_NAME: 963
-POSITION_GROUP: 3
-POSITION: 15
-GAME_DATE: 779
-GAME_ID: 5825
-HOME_TEAM: 30
-AWAY_TEAM: 30
-EVENT_TYPE: 2
-SHOT_MADE: 2
-ACTION_TYPE: 48
-SHOT_TYPE: 2
-BASIC_ZONE: 7
-ZONE_NAME: 6
-ZONE_ABB: 6
-ZONE_RANGE: 5
-LOC_X: 949
-LOC_Y: 1540
-SHOT_DISTANCE: 89
-QUARTER: 7
-MINS_LEFT: 13
-SECS_LEFT: 60
+| **Columna**       | **Valores Únicos** |
+|-------------------|--------------------|
+| SEASON_1          | 5                  |
+| SEASON_2          | 5                  |
+| TEAM_ID           | 30                 |
+| TEAM_NAME         | 31                 |
+| PLAYER_ID         | 954                |
+| PLAYER_NAME       | 963                |
+| POSITION_GROUP    | 3                  |
+| POSITION          | 15                 |
+| GAME_DATE         | 779                |
+| GAME_ID           | 5825               |
+| HOME_TEAM         | 30                 |
+| AWAY_TEAM         | 30                 |
+| EVENT_TYPE        | 2                  |
+| SHOT_MADE         | 2                  |
+| ACTION_TYPE       | 48                 |
+| SHOT_TYPE         | 2                  |
+| BASIC_ZONE        | 7                  |
+| ZONE_NAME         | 6                  |
+| ZONE_ABB          | 6                  |
+| ZONE_RANGE        | 5                  |
+| LOC_X             | 949                |
+| LOC_Y             | 1540               |
+| SHOT_DISTANCE     | 89                 |
+| QUARTER           | 7                  |
+| MINS_LEFT         | 13                 |
+| SECS_LEFT         | 60                 |
 
