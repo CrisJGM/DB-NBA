@@ -32,13 +32,13 @@ QUARTER
 MINS_LEFT
 SECS_LEFT
   
-  Problema encontrado menor: Existencia de comentarios en el csv
+Problema encontrado al cargar el Dataframe: Existencia de comentarios al princpio del csv
 
 Conteo jugadores: 995
 
-nULOS:
-  Position group: 5883
-  Position 5883
+NULOS:
+	- Position group: 5883
+	- Position 5883
 
 59 Duplicados
 
