@@ -34,6 +34,8 @@ Este análisis de datos forma parte de un proyecto de análisis de datos sobre l
 25. MINS_LEFT
 26. SECS_LEFT
 
+Existen columnas con ciertas clasificaciones que pueden ser redundantes como zone name, zone abb, zone range con shot distance. Position group y Position
+
 ### Problemas Encontrados
 
 - **Comentarios al principio del archivo CSV**: Al cargar el dataframe, se encontraron comentarios al principio del archivo que necesitaron ser limpiados.
@@ -48,26 +50,48 @@ Este análisis de datos forma parte de un proyecto de análisis de datos sobre l
 
 - **Nombres sobrantes**: Encontramos 963 players name y 954 id's. Mediante una serie de solicitudes nos dimos cuenta de que hay id's con más de un nombre asignado:
 
-  PLAYER_ID
-203493     2
-1628384    2
-1628408    2
-1630197    2
-1630214    2
-1630231    2
-1630288    2
-1630527    2
-1631466    2
-Name: PLAYER_NAME, dtype: int64
-PLAYER_ID 203493 tiene los nombres: ['Reggie Bullock Jr.' 'Reggie Bullock']
-PLAYER_ID 1628384 tiene los nombres: ['OG Anunoby' 'O.G. Anunoby']
-PLAYER_ID 1628408 tiene los nombres: ['PJ Dozier' 'P.J. Dozier']
-PLAYER_ID 1630197 tiene los nombres: ['Aleksej Pokusevski' 'Alekesej Pokusevski']
-PLAYER_ID 1630214 tiene los nombres: ['Xavier Tillman' 'Xavier Tillman Sr.']
-PLAYER_ID 1630231 tiene los nombres: ['KJ Martin' 'Kenyon Martin Jr.']
-PLAYER_ID 1630288 tiene los nombres: ['Jeff Dowtin Jr.' 'Jeff Dowtin']
-PLAYER_ID 1630527 tiene los nombres: ['Brandon Boston Jr.' 'Brandon Boston']
-PLAYER_ID 1631466 tiene los nombres: ['Nate Williams' 'Jeenathan Williams']
+### Frecuencia de Nombres por `PLAYER_ID`
+
+| PLAYER_ID | Frecuencia |
+|-----------|------------|
+| 203493    | 2          |
+| 1628384   | 2          |
+| 1628408   | 2          |
+| 1630197   | 2          |
+| 1630214   | 2          |
+| 1630231   | 2          |
+| 1630288   | 2          |
+| 1630527   | 2          |
+| 1631466   | 2          |
+
+### Detalle de Nombres por `PLAYER_ID`
+
+- **PLAYER_ID 203493**  
+  Nombres: `['Reggie Bullock Jr.', 'Reggie Bullock']`
+
+- **PLAYER_ID 1628384**  
+  Nombres: `['OG Anunoby', 'O.G. Anunoby']`
+
+- **PLAYER_ID 1628408**  
+  Nombres: `['PJ Dozier', 'P.J. Dozier']`
+
+- **PLAYER_ID 1630197**  
+  Nombres: `['Aleksej Pokusevski', 'Alekesej Pokusevski']`
+
+- **PLAYER_ID 1630214**  
+  Nombres: `['Xavier Tillman', 'Xavier Tillman Sr.']`
+
+- **PLAYER_ID 1630231**  
+  Nombres: `['KJ Martin', 'Kenyon Martin Jr.']`
+
+- **PLAYER_ID 1630288**  
+  Nombres: `['Jeff Dowtin Jr.', 'Jeff Dowtin']`
+
+- **PLAYER_ID 1630527**  
+  Nombres: `['Brandon Boston Jr.', 'Brandon Boston']`
+
+- **PLAYER_ID 1631466**  
+  Nombres: `['Nate Williams', 'Jeenathan Williams']`
 
 ### Análisis Descriptivo
 
@@ -124,4 +148,54 @@ A continuación se presenta un resumen de la cantidad de valores únicos por cad
 | QUARTER           | 7                  |
 | MINS_LEFT         | 13                 |
 | SECS_LEFT         | 60                 |
+
+
+### Frecuencia de valores
+
+#### Éxito de tiros:
+
+![image](https://github.com/user-attachments/assets/2ae2746a-0c58-413d-816c-cbbf7a6a325f)
+
+Missed: 53.23452956262321
+Made: 46.76547043737679
+
+#### Jugadores en cada posición 
+
+![image](https://github.com/user-attachments/assets/73212e5f-dd27-4743-a96d-db610bc32dcb)
+
+POSITION
+SG          250425
+PG          218050
+PF          192917
+SF          177692
+C           161041
+SF-SG         5312
+PG-SG         4675
+SG-PG         3850
+PF-C          2888
+SF-PF         2779
+PF-SF         2505
+SG-SF         1774
+C-PF          1694
+SG-PG-SF       191
+SF-C            66
+
+
+#### Frecuencia de Tiros
+
+Examinando distintos jugadores podemos ver que los tiros concuerdan en la zona mayoritariamente: 
+
+![image](https://github.com/user-attachments/assets/dedbad68-568f-4c32-b5ac-06f0c16b5a38)
+
+La mayoría de tiros son de 10 a 40 pies
+
+![image](https://github.com/user-attachments/assets/fce7aa0e-4cce-41ea-86a7-3a78970b7208)
+
+De los que encontramos los siguientes podemos extremos:
+
+![image](https://github.com/user-attachments/assets/77cac8c4-7939-411a-9db5-438db98ce2ab)
+
+
+
+
 
