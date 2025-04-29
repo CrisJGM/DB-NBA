@@ -50,6 +50,7 @@ Existen columnas con ciertas clasificaciones que pueden ser redundantes como zon
 
 - **Nombres sobrantes**: Encontramos 963 players name y 954 id's. Mediante una serie de solicitudes nos dimos cuenta de que hay id's con más de un nombre asignado:
 
+- **Tiempo restante**: El tiempo restante del cuarto está en minutos y segundos, hay que convertirlo todo a segundos para poder usarlo para el análisis
 ### Frecuencia de Nombres por `PLAYER_ID`
 
 | PLAYER_ID | Frecuencia |
@@ -200,14 +201,23 @@ Representación de aciertos y fallos según la distancia de tiro:
 ![Screenshot from 2025-04-29 10-39-00](https://github.com/user-attachments/assets/ecf73004-d1d0-4b7a-be8a-3c841ab6b37b)
 
 
-### DATA CLEANING
+###  DATA CLEANING
 
-We dropped these columns:
+---
+
+####  Eliminamos las columnas
+
+```python
 df.drop(columns=['SEASON_1'], inplace=True)
 df.drop(columns=['EVENT_TYPE'], inplace=True)
 df.drop(columns=['ZONE_ABB'], inplace=True)
+```
 
-Replaced these names:
+---
+
+####  Reemplazo de nombres de jugadores
+
+```python
 df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^Reggie Bullock$', 'Reggie Bullock Jr.', regex=True)
 df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^OG Anunoby$', 'O.G. Anunoby', regex=True)
 df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^PJ Dozier$', 'P.J. Dozier', regex=True)
@@ -217,15 +227,29 @@ df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^Jeff Dowtin$', 'Jeff Dowtin
 df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^Xavier Tillman Sr.$', 'Xavier Tillman', regex=True)
 df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^Brandon Boston Jr.$', 'Brandon Boston', regex=True)
 df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^Nate Williams$', 'Jeenathan Williams', regex=True)
+```
 
-This team name:
+---
+
+####  Reemplazo de nombre de equipo
+
+```python
 df['TEAM_NAME'] = df['TEAM_NAME'].str.replace(r'^LA Clippers$', 'Los Angeles Clippers', regex=True)
+```
 
-Dropped 59 duplicateds:
+---
+
+####  Eliminamos duplicados
+
+```python
 df = df.drop_duplicates()
+```
 
-Assigned the respectives positions to the players with NaN in this fields (5883 NaN in each column = 11766):
+---
 
+####  Asignación de posiciones a jugadores con valores nulos
+
+```python
 reemplazos = {
     'Jeff Dowtin Jr.': {'POSITION': 'PG', 'POSITION_GROUP': 'G'},
     'Charlie Brown Jr.': {'POSITION': 'SG', 'POSITION_GROUP': 'G'},
@@ -247,8 +271,19 @@ reemplazos = {
     'Michael Frazier II': {'POSITION': 'SG', 'POSITION_GROUP': 'G'},
 }
 
-
 for jugador, datos in reemplazos.items():
     for columna, valor in datos.items():
         df.loc[(df['PLAYER_NAME'] == jugador) & (df[columna].isna()), columna] = valor
+```
+
+---
+
+#### ⏱️ Combinamos minutos y segundos
+
+```python
+df['TIME_LEFT_SECONDS'] = df['TIME LEFT'] * 60 + df['SECONDS_LEFT']
+```
+
+
+        
 
