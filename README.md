@@ -195,6 +195,10 @@ De los que encontramos los siguientes podemos extremos:
 
 ![image](https://github.com/user-attachments/assets/77cac8c4-7939-411a-9db5-438db98ce2ab)
 
+Representación de aciertos y fallos según la distancia de tiro:
+
+![Screenshot from 2025-04-29 10-39-00](https://github.com/user-attachments/assets/ecf73004-d1d0-4b7a-be8a-3c841ab6b37b)
+
 
 ### DATA CLEANING
 
