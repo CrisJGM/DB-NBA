@@ -196,6 +196,23 @@ De los que encontramos los siguientes podemos extremos:
 ![image](https://github.com/user-attachments/assets/77cac8c4-7939-411a-9db5-438db98ce2ab)
 
 
+### DATA CLEANING
 
+We dropped these columns:
+df.drop(columns=['SEASON_1'], inplace=True)
+df.drop(columns=['EVENT_TYPE'], inplace=True)
+df.drop(columns=['ZONE_ABB'], inplace=True)
 
+Replaced these names:
+df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^Reggie Bullock$', 'Reggie Bullock Jr.', regex=True)
+df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^OG Anunoby$', 'O.G. Anunoby', regex=True)
+df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^PJ Dozier$', 'P.J. Dozier', regex=True)
+df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^Alekesej Pokusevski$', 'Aleksej Pokusevski', regex=True)
+df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^KJ Martin$', 'Kenyon Martin Jr.', regex=True)
+df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^Jeff Dowtin$', 'Jeff Dowtin Jr.', regex=True)
+df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^Xavier Tillman Sr.$', 'Xavier Tillman', regex=True)
+df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^Brandon Boston Jr.$', 'Brandon Boston', regex=True)
+df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^Nate Williams$', 'Jeenathan Williams', regex=True)
 
+And this team name:
+df['TEAM_NAME'] = df['TEAM_NAME'].str.replace(r'^LA Clippers$', 'Los Angeles Clippers', regex=True)
