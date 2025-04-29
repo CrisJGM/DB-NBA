@@ -46,6 +46,29 @@ Este análisis de datos forma parte de un proyecto de análisis de datos sobre l
 
 - **Conteo de Jugadores**: Hay un total de 995 jugadores únicos.
 
+- **Nombres sobrantes**: Encontramos 963 players name y 954 id's. Mediante una serie de solicitudes nos dimos cuenta de que hay id's con más de un nombre asignado:
+
+  PLAYER_ID
+203493     2
+1628384    2
+1628408    2
+1630197    2
+1630214    2
+1630231    2
+1630288    2
+1630527    2
+1631466    2
+Name: PLAYER_NAME, dtype: int64
+PLAYER_ID 203493 tiene los nombres: ['Reggie Bullock Jr.' 'Reggie Bullock']
+PLAYER_ID 1628384 tiene los nombres: ['OG Anunoby' 'O.G. Anunoby']
+PLAYER_ID 1628408 tiene los nombres: ['PJ Dozier' 'P.J. Dozier']
+PLAYER_ID 1630197 tiene los nombres: ['Aleksej Pokusevski' 'Alekesej Pokusevski']
+PLAYER_ID 1630214 tiene los nombres: ['Xavier Tillman' 'Xavier Tillman Sr.']
+PLAYER_ID 1630231 tiene los nombres: ['KJ Martin' 'Kenyon Martin Jr.']
+PLAYER_ID 1630288 tiene los nombres: ['Jeff Dowtin Jr.' 'Jeff Dowtin']
+PLAYER_ID 1630527 tiene los nombres: ['Brandon Boston Jr.' 'Brandon Boston']
+PLAYER_ID 1631466 tiene los nombres: ['Nate Williams' 'Jeenathan Williams']
+
 ### Análisis Descriptivo
 
 #### Resumen Estadístico de las Columnas Clave
