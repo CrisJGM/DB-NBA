@@ -218,5 +218,37 @@ df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^Xavier Tillman Sr.$', 'Xavi
 df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^Brandon Boston Jr.$', 'Brandon Boston', regex=True)
 df['PLAYER_NAME'] = df['PLAYER_NAME'].str.replace(r'^Nate Williams$', 'Jeenathan Williams', regex=True)
 
-And this team name:
+This team name:
 df['TEAM_NAME'] = df['TEAM_NAME'].str.replace(r'^LA Clippers$', 'Los Angeles Clippers', regex=True)
+
+Dropped 59 duplicateds:
+df = df.drop_duplicates()
+
+Assigned the respectives positions to the players with NaN in this fields (5883 NaN in each column = 11766):
+
+reemplazos = {
+    'Jeff Dowtin Jr.': {'POSITION': 'PG', 'POSITION_GROUP': 'G'},
+    'Charlie Brown Jr.': {'POSITION': 'SG', 'POSITION_GROUP': 'G'},
+    'AJ Green': {'POSITION': 'SG', 'POSITION_GROUP': 'G'},
+    'Xavier Tillman': {'POSITION': 'PF-C', 'POSITION_GROUP': 'F-C'},
+    'GG Jackson': {'POSITION': 'PF', 'POSITION_GROUP': 'F'},
+    'Matt Hurt': {'POSITION': 'PF', 'POSITION_GROUP': 'F'},
+    'Reggie Bullock Jr.': {'POSITION': 'SF', 'POSITION_GROUP': 'F'},
+    'Jeenathan Williams': {'POSITION': 'SG-SF', 'POSITION_GROUP': 'G-F'},
+    'Jermaine Samuels Jr.': {'POSITION': 'SF', 'POSITION_GROUP': 'F'},
+    'O.G. Anunoby': {'POSITION': 'SF', 'POSITION_GROUP': 'F'},
+    'John Butler Jr.': {'POSITION': 'PF', 'POSITION_GROUP': 'F'},
+    'Chance Comanche': {'POSITION': 'C', 'POSITION_GROUP': 'C'},
+    'M.J. Walker': {'POSITION': 'SG', 'POSITION_GROUP': 'G'},
+    'Trevon Scott': {'POSITION': 'PF', 'POSITION_GROUP': 'F'},
+    'P.J. Dozier': {'POSITION': 'SG', 'POSITION_GROUP': 'G'},
+    'Cam Reynolds': {'POSITION': 'SF', 'POSITION_GROUP': 'F'},
+    'T.J. Leaf': {'POSITION': 'PF', 'POSITION_GROUP': 'F'},
+    'Michael Frazier II': {'POSITION': 'SG', 'POSITION_GROUP': 'G'},
+}
+
+
+for jugador, datos in reemplazos.items():
+    for columna, valor in datos.items():
+        df.loc[(df['PLAYER_NAME'] == jugador) & (df[columna].isna()), columna] = valor
+
