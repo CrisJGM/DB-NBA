@@ -254,7 +254,7 @@ reemplazos = {
     'Jeff Dowtin Jr.': {'POSITION': 'PG', 'POSITION_GROUP': 'G'},
     'Charlie Brown Jr.': {'POSITION': 'SG', 'POSITION_GROUP': 'G'},
     'AJ Green': {'POSITION': 'SG', 'POSITION_GROUP': 'G'},
-    'Xavier Tillman': {'POSITION': 'PF-C', 'POSITION_GROUP': 'F-C'},
+    'Xavier Tillman': {'POSITION': 'PF-C', 'POSITION_GROUP': 'F-C'},c
     'GG Jackson': {'POSITION': 'PF', 'POSITION_GROUP': 'F'},
     'Matt Hurt': {'POSITION': 'PF', 'POSITION_GROUP': 'F'},
     'Reggie Bullock Jr.': {'POSITION': 'SF', 'POSITION_GROUP': 'F'},
@@ -283,6 +283,26 @@ for jugador, datos in reemplazos.items():
 ```python
 df['TIME_LEFT_SECONDS'] = df['TIME LEFT'] * 60 + df['SECONDS_LEFT']
 ```
+
+
+## Visualización:
+
+### Viernes 02
+
+Finalizar el análisis de datos
+Definición de cómo se va a ejecutar la visualización del informe de streamlit.
+
+Unificar informes de Análisis.
+
+### Lunes 05
+
+Maquetar informe de Análisis
+
+Continua y finlizar streamlit
+
+Presentación de Canva
+
+Practicar exposición
 
 
         
