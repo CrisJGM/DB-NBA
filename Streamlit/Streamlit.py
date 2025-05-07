@@ -10,7 +10,7 @@ from mplbasketball import Court
 st.set_page_config(
         page_title="NBA Analysis",
         page_icon="🏀",
-        layout="centered",
+        layout="wide",
         initial_sidebar_state="auto"
     )
     # Título
@@ -50,7 +50,7 @@ st.markdown(
         unsafe_allow_html=True
     )
 
-
+df = pd.read_csv('DB-NBA-cleaned.csv')
 
 opcion1 = st.selectbox(
     label="",  
@@ -74,6 +74,13 @@ if opcion1 == "Welcome":
 #----Streamlit Eugenio--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 elif opcion1 == "Shots Analysis by Type":
+    import streamlit as st
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    from PIL import Image
+    import numpy as np
+    import matplotlib.font_manager as fm
+    from mplbasketball import Court
     img_path = '/home/reboot-student/Pictures/Useful images/NBA-logo-png-download-free-1200x675.png'
     df = pd.read_csv('DB-NBA-cleaned.csv')
 
@@ -83,6 +90,33 @@ elif opcion1 == "Shots Analysis by Type":
     
     img_array = np.array(Image.open(img_path))
 
+    # FIGURA 2 - Todos los ACTION_TYPE ordenados---------------------------------------------------------------------------------------------------
+    fig2, ax2 = plt.subplots(figsize=(20, 11))
+    aciertos_por_tiro = df.groupby('ACTION_TYPE')['SHOT_MADE'].sum().sort_values(ascending=False)
+    aciertos_por_tiro.plot(kind='bar', color='#C8102E', ax=ax2)
+
+    ax2.imshow(img_array, extent=[-0.5, len(aciertos_por_tiro)-0.5, 0, ax2.get_ylim()[1]], alpha=0.3, aspect='auto', zorder=0)
+    ax2.text(0.35, 1.05, "NUMBER OF ", transform=ax2.transAxes, fontproperties=font_prop, fontsize=30, color='#1D428A', ha='right')
+    ax2.text(0.35, 1.05, "SUCCESSFUL SHOTS BY ACTION TYPE", transform=ax2.transAxes, fontproperties=font_prop, fontsize=30, color='#C8102E', ha='left')
+    ax2.set_xlabel("Kind of shot", fontproperties=font_prop, fontsize=22, color='#C8102E', labelpad=20)
+    ax2.set_ylabel("Number of successful shots", fontproperties=font_prop, fontsize=22, color='#1D428A')
+
+    for label in ax2.get_xticklabels():
+        label.set_fontproperties(font_prop)
+        label.set_fontsize(13)
+        label.set_rotation(40)
+        label.set_ha('right')
+        label.set_color("white")
+        label.set_bbox(dict(facecolor='#C8102E', edgecolor='black', boxstyle='round,pad=0.2', alpha=0.8))
+
+    for label in ax2.get_yticklabels():
+        label.set_fontproperties(font_prop)
+        label.set_fontsize(13)
+        label.set_color("white")
+        label.set_bbox(dict(facecolor='#1D428A', edgecolor='black', boxstyle='round,pad=0.2', alpha=0.8))
+
+    plt.tight_layout()
+    st.pyplot(fig2)
     # FIGURA 1 - Top 10 Action Types con SHOT_MADE = 1------------------------------------------------------------------------------------------------------------
     fig1, ax1 = plt.subplots(figsize=(20, 11))
     df[df["SHOT_MADE"] == 1] \
@@ -112,33 +146,7 @@ elif opcion1 == "Shots Analysis by Type":
         label.set_bbox(dict(facecolor='#1D428A', edgecolor='black', boxstyle='round,pad=0.2', alpha=0.8))
 
     plt.tight_layout()
-
-    # FIGURA 2 - Todos los ACTION_TYPE ordenados---------------------------------------------------------------------------------------------------
-    fig2, ax2 = plt.subplots(figsize=(20, 11))
-    aciertos_por_tiro = df.groupby('ACTION_TYPE')['SHOT_MADE'].sum().sort_values(ascending=False)
-    aciertos_por_tiro.plot(kind='bar', color='#C8102E', ax=ax2)
-
-    ax2.imshow(img_array, extent=[-0.5, len(aciertos_por_tiro)-0.5, 0, ax2.get_ylim()[1]], alpha=0.3, aspect='auto', zorder=0)
-    ax2.text(0.35, 1.05, "NUMBER OF ", transform=ax2.transAxes, fontproperties=font_prop, fontsize=30, color='#1D428A', ha='right')
-    ax2.text(0.35, 1.05, "SUCCESSFUL SHOTS BY ACTION TYPE", transform=ax2.transAxes, fontproperties=font_prop, fontsize=30, color='#C8102E', ha='left')
-    ax2.set_xlabel("Kind of shot", fontproperties=font_prop, fontsize=22, color='#C8102E', labelpad=20)
-    ax2.set_ylabel("Number of successful shots", fontproperties=font_prop, fontsize=22, color='#1D428A')
-
-    for label in ax2.get_xticklabels():
-        label.set_fontproperties(font_prop)
-        label.set_fontsize(13)
-        label.set_rotation(40)
-        label.set_ha('right')
-        label.set_color("white")
-        label.set_bbox(dict(facecolor='#C8102E', edgecolor='black', boxstyle='round,pad=0.2', alpha=0.8))
-
-    for label in ax2.get_yticklabels():
-        label.set_fontproperties(font_prop)
-        label.set_fontsize(13)
-        label.set_color("white")
-        label.set_bbox(dict(facecolor='#1D428A', edgecolor='black', boxstyle='round,pad=0.2', alpha=0.8))
-
-    plt.tight_layout()
+    st.pyplot(fig1)
 
     # FIGURA 3 - Distribución de tiros por tipo----------------------------------------------------------------------------------------------------------
     colores_por_tipo = {
@@ -203,7 +211,7 @@ elif opcion1 == "Shots Analysis by Type":
 
     ax3.axis("off")
     plt.tight_layout()
-
+    st.pyplot(fig3)
     # === FIGURA 4: Layup Shots ===--------------------------------------------------------------------------------------------------------------------
     colores_layups = {
         "Running Layup Shot": "#1D428A",
@@ -243,7 +251,7 @@ elif opcion1 == "Shots Analysis by Type":
         text.set_fontsize(16)
     ax4.axis("off")
     plt.tight_layout()
-
+    st.pyplot(fig4)
     # === FIGURA 5: Jump Shots ===--------------------------------------------------------------------------------------------------------------------------
     colores_jump = {
         "Jump Shot": "#1D428A",
@@ -281,6 +289,7 @@ elif opcion1 == "Shots Analysis by Type":
         text.set_fontsize(16)
     ax5.axis("off")
     plt.tight_layout()
+    st.pyplot(fig5)
     # === FIGURA 6: Top 10 Efficienty Shots ===----------------------------------------------------------------------------------------------------------
     # Fuente y logo
     font_path = "/home/reboot-student/Downloads/Oswald/Oswald-VariableFont_wght.ttf"
@@ -358,37 +367,10 @@ elif opcion1 == "Shots Analysis by Type":
         ))
 
     plt.tight_layout()
-
+    st.pyplot(fig6)
 
 
     # === Streamlit ===------------------------------------------------------------------------------------------------------------------
-
-    opcion = st.selectbox(
-        label="",  # Oculta el texto original
-        options=[
-            "Total Number of Shots Made by Type",
-            "Top 10 Kind of Shots",
-            "Shots Heatmap",
-            "Layup Shots",
-            "Jump Shots",
-            "Top 10 Efficient Shots",
-        ]
-    )
-
-
-    if opcion == "Top 10 Kind of Shots":
-        st.pyplot(fig1)
-    elif opcion == "Total Number of Shots Made by Type":
-        st.pyplot(fig2)
-    elif opcion == "Shots Heatmap":
-        st.pyplot(fig3)
-    elif opcion == "Layup Shots":
-        st.pyplot(fig4)
-    elif opcion == "Jump Shots":
-        st.pyplot(fig5)
-    elif opcion == "Top 10 Efficient Shots":
-        st.pyplot(fig6)
-
 #----Streamlit Cristian--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 elif opcion1 == "Shots Distribution Analysis":
@@ -489,9 +471,9 @@ elif opcion1 == "Shots Distribution Analysis":
     kpi2.metric("Shooting %", f"{accuracy_pct:.1f}%")
     kpi3.metric("Average Distance", f"{avg_distance:.1f} ft")
 
-    # ---- ADDITIONAL CHARTS ----
+   # ---- ADDITIONAL CHARTS ----
     st.subheader("Zone and Time Analysis")
-    g1, g2, g3 = st.columns(3)
+    g1, g2,  = st.columns(2)
 
     with g1:
         st.markdown("**Shots by Zone**")
@@ -503,17 +485,50 @@ elif opcion1 == "Shots Distribution Analysis":
         dist_range = filtered["ZONE_RANGE"].value_counts()
         st.bar_chart(dist_range)
 
-    with g3:
-        st.markdown("**Distance vs Quarter (Average Shot Distance per Quarter)**")
-        if not filtered.empty:
-            grouped = filtered.groupby("QUARTER")["SHOT_DISTANCE"].mean()
-            st.line_chart(grouped)
 
     st.markdown("**Distance vs Time Remaining (Average Shot Distance over Time Remaining)**")
     if not filtered.empty:
         time_vs_dist = filtered.groupby("TIME_LEFT_SECONDS")["SHOT_DISTANCE"].mean()
         st.line_chart(time_vs_dist.sort_index())
 
+    st.markdown("**Distance vs Quarter (Average Shot Distance per Quarter)**")
+    if not filtered.empty:
+        import plotly.graph_objects as go
+
+    if not filtered.empty:
+        grouped = filtered.groupby("QUARTER")["SHOT_DISTANCE"].mean().reset_index()
+
+        fig = go.Figure()
+
+        # Línea de distancia media
+        fig.add_trace(go.Scatter(
+            x=grouped["QUARTER"],
+            y=grouped["SHOT_DISTANCE"],
+            mode='lines+markers',
+            name='Avg. Shot Distance',
+            line=dict(color='#1D428A'),
+            marker=dict(size=8)
+        ))
+
+        # Línea de prórroga
+        fig.add_vline(
+            x=4,
+            line=dict(color='red', width=2, dash='dash'),
+            annotation_text="Overtime",
+            annotation_position="top right",
+            annotation_font_color="red"
+        )
+
+        # Zoom en el área deseada
+        fig.update_layout(
+            xaxis_title="Quarter",
+            yaxis_title="Average Shot Distance (ft)",
+            xaxis=dict(range=[1, 7]),
+            yaxis=dict(range=[13, 16]),
+            template="plotly_white"
+        )
+
+        st.plotly_chart(fig, use_container_width=True) 
 #----Streamlit Javi--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 elif opcion1 == "Player and Team Analysis":
     import pandas as pd
